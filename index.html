@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>X — about that wine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Space+Mono:wght@400;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="scene">
+  <div class="ambient-glow"></div>
+  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+
+  <main class="card" id="card">
+
+    <ol class="progress" id="progress" aria-hidden="true">
+      <li class="dot is-active" data-for="invite"></li>
+      <li class="dot" data-for="slider"></li>
+      <li class="dot" data-for="dates"></li>
+      <li class="dot" data-for="confirm"></li>
+    </ol>
+
+    <!-- Screen 1 — the invite -->
+    <section class="screen is-active" data-screen="invite">
+      <div class="glass-wrap">
+        <svg class="glass" viewBox="0 0 160 230" aria-hidden="true">
+          <defs>
+            <clipPath id="bowlClip">
+              <path d="M40 14 C40 70 46 96 80 128 C114 96 120 70 120 14 Z" />
+            </clipPath>
+            <linearGradient id="wineGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9c1f3f" />
+              <stop offset="100%" stop-color="#5c0f24" />
+            </linearGradient>
+          </defs>
+          <path class="glass-outline" d="M40 14 C40 70 46 96 80 128 C114 96 120 70 120 14 Z" />
+          <g clip-path="url(#bowlClip)">
+            <rect class="wine-fill" x="30" y="60" width="100" height="80" fill="url(#wineGradient)" />
+            <ellipse class="wine-wave" cx="80" cy="60" rx="52" ry="6" fill="url(#wineGradient)" />
+            <circle class="fizz" cx="65" cy="105" r="2" />
+            <circle class="fizz fizz--b" cx="90" cy="115" r="1.6" />
+            <circle class="fizz fizz--c" cx="78" cy="95" r="1.3" />
+          </g>
+          <line class="glass-stem" x1="80" y1="128" x2="80" y2="196" />
+          <line class="glass-base" x1="52" y1="212" x2="108" y2="212" />
+          <line class="glass-base-stem" x1="80" y1="196" x2="80" y2="212" />
+        </svg>
+      </div>
+
+      <p class="kicker">git commit -m "asking X out"</p>
+      <h1>Pour a little time into a wine date with me?</h1>
+      <p class="sub">No standups, no sprint review — just something red, something dry, and the two of us after hours.</p>
+
+      <div class="choice-row" id="choiceRow">
+        <button class="btn btn-primary" id="yesBtn" type="button">Obviously, yes</button>
+        <button class="btn btn-ghost" id="noBtn" type="button">No</button>
+      </div>
+      <p class="hint" id="noHint" hidden></p>
+    </section>
+
+    <!-- Screen 2 — the slider -->
+    <section class="screen" data-screen="slider">
+      <p class="kicker">console.log(fun_level)</p>
+      <h2>How much fun do you think we'll have?</h2>
+      <p class="sub">Drag it. Be honest. Or don't — it won't matter.</p>
+
+      <div class="slider-wrap">
+        <input type="range" min="0" max="100" value="0" step="1" id="funSlider" class="slider" aria-label="Predicted fun level" />
+        <div class="slider-scale"><span>0</span><span>100</span></div>
+      </div>
+
+      <p class="fun-readout"><span id="funReadout">0</span><span class="fun-readout-suffix">% fun</span></p>
+      <p class="fun-msg" id="funMsg" hidden>The slider was only there to make you feel involved — of course it's 0. The real number gets decided over wine.</p>
+
+      <button class="btn btn-primary" id="toDatesBtn" type="button">Next</button>
+    </section>
+
+    <!-- Screen 3 — pick a date -->
+    <section class="screen" data-screen="dates">
+      <p class="kicker">SELECT night FROM calendar WHERE free = true;</p>
+      <h2>Pick the night</h2>
+      <p class="sub">Table's held after 20:00 — the only sensible hour for a glass of red.</p>
+
+      <div class="date-grid" id="dateGrid">
+        <button class="date-card" type="button" data-date="Friday, 04.09">
+          <span class="date-day">Friday</span>
+          <span class="date-num">04.09</span>
+        </button>
+        <button class="date-card" type="button" data-date="Saturday, 05.09">
+          <span class="date-day">Saturday</span>
+          <span class="date-num">05.09</span>
+        </button>
+        <button class="date-card" type="button" data-date="Sunday, 06.09">
+          <span class="date-day">Sunday</span>
+          <span class="date-num">06.09</span>
+        </button>
+      </div>
+
+      <p class="date-status" id="dateStatus" hidden></p>
+    </section>
+
+    <!-- Screen 4 — confirmation -->
+    <section class="screen" data-screen="confirm">
+      <div class="glass-wrap glass-wrap--final">
+        <svg class="glass" viewBox="0 0 160 230" aria-hidden="true">
+          <defs>
+            <clipPath id="bowlClip2">
+              <path d="M40 14 C40 70 46 96 80 128 C114 96 120 70 120 14 Z" />
+            </clipPath>
+            <linearGradient id="wineGradient2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9c1f3f" />
+              <stop offset="100%" stop-color="#5c0f24" />
+            </linearGradient>
+          </defs>
+          <path class="glass-outline" d="M40 14 C40 70 46 96 80 128 C114 96 120 70 120 14 Z" />
+          <g clip-path="url(#bowlClip2)">
+            <rect class="wine-fill wine-fill--full" x="30" y="30" width="100" height="110" fill="url(#wineGradient2)" />
+            <ellipse class="wine-wave" cx="80" cy="30" rx="52" ry="6" fill="url(#wineGradient2)" />
+          </g>
+          <line class="glass-stem" x1="80" y1="128" x2="80" y2="196" />
+          <line class="glass-base" x1="52" y1="212" x2="108" y2="212" />
+          <line class="glass-base-stem" x1="80" y1="196" x2="80" y2="212" />
+        </svg>
+      </div>
+
+      <p class="kicker" id="confirmKicker">Deploy successful ✓</p>
+      <h2 id="confirmHeading">Reserved.</h2>
+      <p class="sub" id="confirmSub"></p>
+      <p class="sub sub--muted">Now go back to IG. I'll handle the rest 🍷</p>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="email.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
